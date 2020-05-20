@@ -17,7 +17,7 @@ export const fetchCityWeather = (city: string, fetchAPI: any) => {
   return fetchPromise
 }
 
-export const processWeatherPromises = async (weatherPromises: Array<Promise<any>>) => {
+export const processWeatherPromises = async (weatherPromises: Array<Promise<any>>): Promise<Array<any>> => {
   try {
     const resolved = await Promise.all(weatherPromises)
     
@@ -27,4 +27,33 @@ export const processWeatherPromises = async (weatherPromises: Array<Promise<any>
   }
 }
 
-export const processValidResponse = (response) => ({})
+export const processValidResponse = response => {
+  const { error, location, current } = response
+
+  if(error) {
+    return error.message
+  }
+
+  return {
+    locationInfo: {
+      city: location.name,
+      country: location.country,
+      localTime: location.localtime
+    },
+    currentWeatherCondition: {
+      lastUpdatedAt: current.last_updated,
+      condition: current.condition.text,
+      temperature: {
+        celcius: current.temp_c,
+        farenheit: current.temp_f,
+      },
+      wind: {
+        spendInMPH: current.wind_mph,
+        spendInKPH: current.wind_kph,
+        angleInDegree: current.wind_degree,
+        direction: current.wind_dir
+      },
+      humidity: current.humidity
+    }
+  }
+}

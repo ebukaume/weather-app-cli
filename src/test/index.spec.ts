@@ -57,8 +57,24 @@ describe('process returned weather data', () => {
 
   it("should collectly format the response if no error", () => {
     const response = {
-      location: {},
-      current: {},
+      location: {
+        name: "Berlin",
+        country: "Germany",
+        localtime: "2020-05-20 13:19"
+      },
+      current: {
+        last_updated: "2020-05-20 04:15",
+        temp_c: 11.1,
+        temp_f: 52,
+        condition: {
+          text: "Clear"
+        },
+        wind_mph: 0,
+        wind_kph: 0,
+        wind_degree: 67,
+        wind_dir: "NNW",
+        humidity: 54,
+      }
     }
     const output = processValidResponse(response)
     const outputProperties = Object.keys(output)
