@@ -26,3 +26,5 @@ export const processWeatherPromises = async (weatherPromises: Array<Promise<any>
     return rejected
   }
 }
+
+export const processValidResponse = (response) => ({})

@@ -1,4 +1,4 @@
-import { cleanInput, fetchCityWeather, processWeatherPromises } from '../api'
+import { cleanInput, fetchCityWeather, processWeatherPromises, processValidResponse } from '../api'
 
 describe('clean user input', () => {
   it('should strip out special characters', () => {
@@ -39,5 +39,30 @@ describe('process fetch promises', () => {
     const result = await processWeatherPromises(input)
 
     expect(result).toEqual(expectedOutput)
+  })
+})
+
+describe('process returned weather data', () => {
+  it("should capture 'city not found' error", () => {
+    const response = {
+      error: {
+        code: 1006,
+        message: 'No matching location found.'
+      }
+    }
+    const output = processValidResponse(response)
+
+    expect(output).toEqual(response.error.message)
+  })
+
+  it("should collectly format the response if no error", () => {
+    const response = {
+      location: {},
+      current: {},
+    }
+    const output = processValidResponse(response)
+    const outputProperties = Object.keys(output)
+
+    expect(outputProperties).toEqual(['locationInfo', 'currentWeatherCondition'])
   })
 })
