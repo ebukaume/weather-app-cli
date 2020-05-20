@@ -4,7 +4,6 @@
   "description": "CLI-based weather app",
   "main": "bin/weather.js",
   "scripts": {
-    "build": "rimraf dist && tsc",
     "start": "ts-node bin/weather.ts",
     "dev": "nodemon --exec ts-node bin/weather.ts --watch src",
     "test": "jest --watchAll",
@@ -18,12 +17,13 @@
     "jest": "^26.0.1",
     "nodemon": "^2.0.4",
     "rimraf": "^3.0.2",
-    "ts-jest": "^26.0.0",
-    "ts-node": "^8.10.1",
-    "typescript": "^3.9.3"
+    "ts-jest": "^26.0.0"
   },
   "dependencies": {
     "@types/node-fetch": "^2.5.7",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.0",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.3"
   }
 }

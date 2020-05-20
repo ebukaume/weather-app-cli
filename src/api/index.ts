@@ -9,7 +9,7 @@ export const cleanInput = (input: Array<string>): Array<string> => {
   return cleanedInput
 }
 
-export const fetchCityWeather = (city: string, fetchAPI: any) => {
+export const fetchCityWeather = (city: string, fetchAPI: any): Promise<any> => {
   const weatherEndPoint = `http://api.weatherapi.com/v1/current.json?q=${city}&key=${process.env.API_KEY}`
   const fetchPromise = fetchAPI(weatherEndPoint)
     .then(response => response.json())
