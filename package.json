@@ -1,0 +1,25 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "CLI-based weather app",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon --exec ts-node src/index.ts --watch src",
+    "test": "jest --watchAll",
+    "coverage": "jest --coverage"
+  },
+  "author": "Ebuka Umeokonkwo<ebukaume@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "@types/node": "^14.0.4",
+    "jest": "^26.0.1",
+    "nodemon": "^2.0.4",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.0.0",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.3"
+  }
+}
