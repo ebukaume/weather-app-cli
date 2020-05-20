@@ -1,4 +1,5 @@
 const dotenv = require('dotenv')
+import { FetchError } from 'node-fetch'
 
 dotenv.config()
 
@@ -28,6 +29,9 @@ export const processWeatherPromises = async (weatherPromises: Array<Promise<any>
 }
 
 export const processValidResponse = response => {
+  if(response instanceof FetchError) {
+    return response.message
+  }
   const { error, location, current } = response
 
   if(error) {

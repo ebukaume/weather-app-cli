@@ -10,9 +10,6 @@
         "*": [
           "node_modules/",
         ],
-        "typings/*": [
-          "src/typings/*"
-        ]
       },
     },
     "include": [

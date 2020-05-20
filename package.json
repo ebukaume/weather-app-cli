@@ -2,11 +2,11 @@
   "name": "weather-app",
   "version": "1.0.0",
   "description": "CLI-based weather app",
-  "main": "index.js",
+  "main": "bin/weather.js",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "start": "node dist/index.js",
-    "dev": "nodemon --exec ts-node src/index.ts --watch src",
+    "start": "ts-node bin/weather.ts",
+    "dev": "nodemon --exec ts-node bin/weather.ts --watch src",
     "test": "jest --watchAll",
     "coverage": "jest --coverage"
   },
