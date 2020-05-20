@@ -12,13 +12,13 @@ describe('clean user input', () => {
 
 describe('fetch weather data', () => {
   it('should retrieve weather information for a city', () => {
-    const API_KEY = "DUMMNY_TEST_API_KEY"
     const city = "Berlin"
-    const fetch = jest.fn()
+    const fetch = jest.fn(() => new Promise((resolve, reject) => {}))
     fetchCityWeather(city, fetch)
 
     expect(fetch).toHaveBeenCalledTimes(1)
     expect(fetch).toHaveBeenCalledWith(expect.stringContaining(city))
-    expect(fetch).toHaveBeenCalledWith(expect.stringContaining(API_KEY))
+    expect(fetch).toHaveBeenCalledWith(expect.stringContaining(process.env.API_KEY))
   })
 })
+
