@@ -1,9 +1,27 @@
-import { cleanInput, fetchCityWeather, processWeatherPromises, processValidResponse } from '../api'
+import { emptyInput, cleanInput, fetchCityWeather, processWeatherPromises, processValidResponse } from '../api'
+
+describe('check for empty input', () => {
+  it('should return false for empty input', () => {
+    const input: Array<string> = []
+    const expectedOutput: boolean = true
+    const output = emptyInput(input)
+
+    expect(output).toEqual(expectedOutput)
+  })
+
+  it('should return true for non-empty input', () => {
+    const input: Array<string> = ['berlin']
+    const expectedOutput: boolean = false
+    const output = emptyInput(input)
+
+    expect(output).toEqual(expectedOutput)
+  })
+})
 
 describe('clean user input', () => {
   it('should strip out special characters', () => {
-    const input: Array<string> = ['!Lagos', 'london,', 'jos.', 'Berlin*', 'sao paulo;']
-    const expectedOutput: Array<string> = ['Lagos', 'london', 'jos', 'Berlin', 'sao paulo']
+    const input: Array<string> = ['!Lagos', 'london,', 'jos.', 'Berlin*', 'sao paulo;', '10010']
+    const expectedOutput: Array<string> = ['Lagos', 'london', 'jos', 'Berlin', 'sao paulo', '10010']
     const output = cleanInput(input)
 
     expect(output).toEqual(expectedOutput)

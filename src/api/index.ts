@@ -3,6 +3,8 @@ import { FetchError } from 'node-fetch'
 
 dotenv.config()
 
+export const emptyInput = (userInput: Array<string>): boolean => false
+
 export const cleanInput = (input: Array<string>): Array<string> => {
   const cleanedInput = input.map(value => value.replace(/[!@#$%^&*.,`~%;:]/g, ""))
   
