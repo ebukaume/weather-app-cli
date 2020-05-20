@@ -1,4 +1,4 @@
-import { cleanInput, fetchCityWeather } from '../api'
+import { cleanInput, fetchCityWeather, processWeatherPromises } from '../api'
 
 describe('clean user input', () => {
   it('should strip out special characters', () => {
@@ -22,3 +22,22 @@ describe('fetch weather data', () => {
   })
 })
 
+describe('process fetch promises', () => {
+  it('should concurrently process the resolved promises', async () => {
+    const resolvedPromise = new Promise((resolve, reject) => resolve('resolved'))
+    const input = [resolvedPromise]
+    const expectedOutput = ['resolved']
+    const result = await processWeatherPromises(input)
+
+    expect(result).toEqual(expectedOutput)
+  })
+
+  it('should concurrently process the rejected promises', async () => {
+    const rejectedPromise = new Promise((resolve, reject) => reject('rejected'))
+    const input = [rejectedPromise]
+    const expectedOutput = 'rejected'
+    const result = await processWeatherPromises(input)
+
+    expect(result).toEqual(expectedOutput)
+  })
+})

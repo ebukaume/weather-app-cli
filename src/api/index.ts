@@ -17,3 +17,4 @@ export const fetchCityWeather = (city: string, fetchAPI: any) => {
   return fetchPromise
 }
 
+export const processWeatherPromises = async (weatherPromises: Array<Promise<any>>) => {}
