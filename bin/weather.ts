@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import { emptyInput, cleanInput, fetchCityWeather, processWeatherPromises, processValidResponse } from '../src/api'
+import { emptyInput, cleanInput, fetchCityWeather, processPromises, processValidResponse } from '../src/api'
 
 const commandLineArguments = process.argv
 const userInputs: Array<string> = commandLineArguments.splice(2)
@@ -13,7 +13,7 @@ if(emptyUserInput) {
 const cleanedInput: Array<string> = cleanInput(userInputs)
 const cityWeatherPromises: Array<Promise<any>> = cleanedInput.map(city => fetchCityWeather(city, fetch))
 
-processWeatherPromises(cityWeatherPromises)
+processPromises(cityWeatherPromises)
   .then((promisedResponses: Array<Promise<any>>) => {
     const processedResponse = promisedResponses.map(response => processValidResponse(response))
     const formattedOutput = JSON.stringify(processedResponse, null, 3)

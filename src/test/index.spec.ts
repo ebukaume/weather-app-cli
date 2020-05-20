@@ -1,4 +1,4 @@
-import { emptyInput, cleanInput, fetchCityWeather, processWeatherPromises, processValidResponse } from '../api'
+import { emptyInput, cleanInput, fetchCityWeather, processPromises, processValidResponse } from '../api'
 
 describe('check for empty input', () => {
   it('should return false for empty input', () => {
@@ -45,7 +45,7 @@ describe('process fetch promises', () => {
     const resolvedPromise = new Promise((resolve, reject) => resolve('resolved'))
     const input = [resolvedPromise]
     const expectedOutput = ['resolved']
-    const result = await processWeatherPromises(input)
+    const result = await processPromises(input)
 
     expect(result).toEqual(expectedOutput)
   })
@@ -54,7 +54,7 @@ describe('process fetch promises', () => {
     const rejectedPromise = new Promise((resolve, reject) => reject('rejected'))
     const input = [rejectedPromise]
     const expectedOutput = 'rejected'
-    const result = await processWeatherPromises(input)
+    const result = await processPromises(input)
 
     expect(result).toEqual(expectedOutput)
   })
@@ -78,7 +78,9 @@ describe('process returned weather data', () => {
       location: {
         name: "Berlin",
         country: "Germany",
-        localtime: "2020-05-20 13:19"
+        localtime: "2020-05-20 13:19",
+        lon: 13.4,
+        lat: 52.52
       },
       current: {
         last_updated: "2020-05-20 04:15",

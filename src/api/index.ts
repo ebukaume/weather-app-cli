@@ -1,5 +1,6 @@
 const dotenv = require('dotenv')
 import { FetchError } from 'node-fetch'
+import { ValidResponseData } from '../types/d'
 
 dotenv.config()
 
@@ -17,7 +18,7 @@ export const cleanInput = (input: Array<string>): Array<string> => {
   return cleanedInput
 }
 
-export const fetchCityWeather = (city: string, fetchAPI: any): Promise<any> => {
+export const fetchCityWeather = (city: string, fetchAPI: any): Promise<Response> => {
   const weatherEndPoint = `http://api.weatherapi.com/v1/current.json?q=${city}&key=${process.env.API_KEY}`
   const fetchPromise = fetchAPI(weatherEndPoint)
     .then(response => response.json())
@@ -26,9 +27,9 @@ export const fetchCityWeather = (city: string, fetchAPI: any): Promise<any> => {
   return fetchPromise
 }
 
-export const processWeatherPromises = async (weatherPromises: Array<Promise<any>>): Promise<Array<any>> => {
+export const processPromises = async (promises: Array<Promise<any>>): Promise<Array<any>> => {
   try {
-    const resolved = await Promise.all(weatherPromises)
+    const resolved = await Promise.all(promises)
     
     return resolved
   } catch(rejected) {
@@ -36,7 +37,8 @@ export const processWeatherPromises = async (weatherPromises: Array<Promise<any>
   }
 }
 
-export const processValidResponse = response => {
+
+export const processValidResponse = (response: any): string | ValidResponseData => {
   if(response instanceof FetchError) {
     return response.message
   }
@@ -50,7 +52,9 @@ export const processValidResponse = response => {
     locationInfo: {
       city: location.name,
       country: location.country,
-      localTime: location.localtime
+      localTime: location.localtime,
+      longitude: location.lon,
+      latitude: location.lat,
     },
     currentWeatherCondition: {
       lastUpdatedAt: current.last_updated,
